@@ -1,0 +1,25 @@
+{
+  "imports": {
+    "@azure/identity": "npm:@azure/identity@4.14.1",
+    "@azure/msal-browser": "npm:@azure/msal-browser@5.29.1",
+    "@azure/storage-blob": "npm:@azure/storage-blob@12.34.0",
+    "ipaddr.js": "npm:ipaddr.js@2.5.0",
+    "jose": "npm:jose@6.2.17",
+    "linkedom": "npm:linkedom@0.18.15",
+    "pdf-lib": "npm:pdf-lib@1.17.1",
+    "pdfjs-dist": "npm:pdfjs-dist@6.5.438"
+  },
+  "tasks": {
+    "build:web": "deno bundle --platform=browser --minify -o dist/app.js web/app.ts && deno bundle --platform=browser --minify -o dist/redirect.js web/redirect.ts",
+    "check": "deno check src/main.ts web/*.ts tests/*.test.ts",
+    "fmt": "deno fmt --check .",
+    "lint": "deno lint .",
+    "test": "deno test --allow-read --allow-env tests/",
+    "start": "deno run --allow-net --allow-env --allow-read=dist,web src/main.ts",
+    "start:env": "deno run --env-file=.env --allow-net --allow-env --allow-read=dist,web src/main.ts"
+  },
+  "exclude": ["dist/"],
+  "lock": {
+    "path": "deno.lock"
+  }
+}

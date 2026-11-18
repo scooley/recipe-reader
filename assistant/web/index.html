@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pattern and recipe sources</title>
+    <script nonce="__CSP_NONCE__">
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme = param ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+    </script>
+    <style nonce="__CSP_NONCE__">
+    :root {
+      color-scheme: light;
+      --cp-bg: #f7f4ef;
+      --cp-bg-elevated: #fcfbf8;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #f5f5f5;
+      --cp-border: #dedede;
+      --cp-border-strong: #919191;
+      --cp-text: #242424;
+      --cp-text-muted: #5c5c5c;
+      --cp-text-soft: #6f6f6f;
+      --cp-accent: #b11f4b;
+      --cp-accent-hover: #9a1a41;
+      --cp-accent-soft: rgba(177, 31, 75, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #0078d4;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.86);
+      --cp-panel-strong: rgba(255, 255, 255, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.55);
+      --cp-highlight: rgba(177, 31, 75, 0.12);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #3d3b3a;
+      --cp-bg-elevated: #343231;
+      --cp-surface: #292929;
+      --cp-surface-soft: #2e2e2e;
+      --cp-border: #474747;
+      --cp-border-strong: #5f5f5f;
+      --cp-text: #dedede;
+      --cp-text-muted: #919191;
+      --cp-text-soft: #b0b0b0;
+      --cp-accent: #fd8ea1;
+      --cp-accent-hover: #fb7b91;
+      --cp-accent-soft: rgba(253, 142, 161, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #4da6ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-overlay: rgba(41, 41, 41, 0.88);
+      --cp-panel: rgba(41, 41, 41, 0.72);
+      --cp-panel-strong: rgba(41, 41, 41, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.04);
+      --cp-highlight: rgba(253, 142, 161, 0.12);
+    }
+    </style>
+    <link rel="stylesheet" href="/manage/styles.css">
+    <script type="module" src="/manage/app.js"></script>
+  </head>
+  <body>
+    <main>
+      <h1>Pattern and recipe sources</h1>
+      <p>Manage sources here. Talk to your assistant in LiveKit Live preview.</p>
+      <button id="signin" type="button">Sign in with Microsoft</button>
+      <button id="signout" type="button" hidden>Sign out</button>
+      <p id="status" role="status"
+        aria-live="polite">Sign in to manage your projects.</p>
+      <section id="workspace" hidden aria-label="Your projects">
+        <form id="create">
+          <label for="title">New project title</label>
+          <input id="title" name="title" required maxlength="120">
+          <button type="submit">Create project</button>
+        </form>
+        <label for="projects">Project</label>
+        <select id="projects" aria-describedby="details"></select>
+        <button id="refresh" type="button">Refresh projects</button>
+        <p id="details"></p>
+        <button id="select" type="button">Use for voice conversation</button>
+        <form id="pdf">
+          <label for="file">Text-only PDF (up to 25 MiB, 60 pages)</label>
+          <input id="file" type="file" accept="application/pdf,.pdf" required>
+          <p>Charts, drawings, scans, and separated columns are not supported.</p>
+          <button type="submit">Upload PDF</button>
+          <progress id="upload-progress" max="100" value="0"
+            aria-label="PDF upload progress" hidden></progress>
+        </form>
+        <form id="url">
+          <label for="page-url">Public HTTPS webpage URL</label>
+          <input id="page-url" type="url" placeholder="https://…" required
+            maxlength="2048">
+          <p>No login-only pages or redirects. Only readable text is retained.</p>
+          <button type="submit">Import webpage</button>
+        </form>
+        <form id="delete">
+          <label
+            for="confirm-title">To permanently delete this project and its sources, type its exact title</label>
+          <input id="confirm-title" required autocomplete="off">
+          <button type="submit"
+            class="danger">Permanently delete project</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

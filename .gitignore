@@ -12,3 +12,10 @@
 .claude/scheduled_tasks.lock
 .claude/scheduled_tasks.json
 # END swamp managed section
+
+# Assistant local configuration and generated browser bundle
+assistant/.env
+assistant/.env.*
+!assistant/.env.example
+assistant/dist/
+assistant/node_modules/

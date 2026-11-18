@@ -1,0 +1,83 @@
+body {
+  margin: 0;
+  background: var(--cp-bg);
+  color: var(--cp-text);
+  font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont,
+    sans-serif;
+  line-height: 1.6;
+}
+main {
+  max-width: 720px;
+  margin: 32px auto;
+  padding: 24px;
+}
+section {
+  background: var(--cp-surface);
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+  padding: 24px;
+}
+form {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--cp-border);
+}
+label {
+  display: block;
+  font-weight: 600;
+  margin-top: 12px;
+}
+input,
+select,
+button {
+  font: inherit;
+  border-radius: 0.625rem;
+  padding: 8px 12px;
+  border: 1px solid var(--cp-border-strong);
+}
+input,
+select {
+  box-sizing: border-box;
+  width: 100%;
+  background: var(--cp-bg-elevated);
+  color: var(--cp-text);
+  margin: 8px 0;
+}
+button {
+  cursor: pointer;
+  margin: 8px 8px 8px 0;
+  background: var(--cp-accent);
+  color: var(--cp-accent-fg);
+}
+button:hover {
+  background: var(--cp-accent-hover);
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+:focus-visible {
+  outline: 3px solid var(--cp-link);
+  outline-offset: 3px;
+}
+p {
+  color: var(--cp-text-muted);
+}
+.danger {
+  background: var(--cp-surface);
+  color: var(--cp-danger);
+  border-color: var(--cp-danger);
+}
+.danger:hover {
+  background: var(--cp-accent-soft);
+}
+#status[data-error="true"] {
+  color: var(--cp-danger);
+}
+progress {
+  display: block;
+  width: 100%;
+  accent-color: var(--cp-accent);
+}
+[hidden] {
+  display: none !important;
+}

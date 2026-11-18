@@ -1,0 +1,751 @@
+{
+  "version": "5",
+  "specifiers": {
+    "npm:@azure/identity@4.14.1": "4.14.1",
+    "npm:@azure/msal-browser@5.29.1": "5.29.1",
+    "npm:@azure/storage-blob@12.34.0": "12.34.0",
+    "npm:ipaddr.js@2.5.0": "2.5.0",
+    "npm:jose@6.2.17": "6.2.17",
+    "npm:linkedom@0.18.15": "0.18.15",
+    "npm:pdf-lib@1.17.1": "1.17.1",
+    "npm:pdfjs-dist@6.5.438": "6.5.438"
+  },
+  "npm": {
+    "@azure/abort-controller@2.2.0": {
+      "integrity": "93e0e82b01862e7ea3b5b69958719d3f3fd2c8ac",
+      "dependencies": [
+        "tslib@2.9.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/abort-controller/-/abort-controller-2.2.0.tgz"
+    },
+    "@azure/core-auth@1.11.0": {
+      "integrity": "1daeffdf62d1a871d22b865f9f3164a63ea1f575",
+      "dependencies": [
+        "@azure/abort-controller",
+        "@azure/core-util",
+        "tslib@2.9.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/core-auth/-/core-auth-1.11.0.tgz"
+    },
+    "@azure/core-client@1.11.2": {
+      "integrity": "sha512-ajuIU1aMoTs/ERYrKnIqQrV5Vz3RL8mwDC5RdedIXUvR7pi6cWzeYmt0LfNz6+W91CuCO4WJG0zA6+PhU1X+hw==",
+      "dependencies": [
+        "@azure/abort-controller",
+        "@azure/core-auth",
+        "@azure/core-rest-pipeline",
+        "@azure/core-tracing",
+        "@azure/core-util",
+        "@azure/logger",
+        "tslib@2.9.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/core-client/-/core-client-1.11.2.tgz"
+    },
+    "@azure/core-http-compat@2.5.0_@azure+core-client@1.11.2_@azure+core-rest-pipeline@1.25.1": {
+      "integrity": "d780661a59f8a432fecb2b7c6fa2d5822dca1dea",
+      "dependencies": [
+        "@azure/abort-controller",
+        "@azure/core-client",
+        "@azure/core-rest-pipeline"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/core-http-compat/-/core-http-compat-2.5.0.tgz"
+    },
+    "@azure/core-lro@2.7.2": {
+      "integrity": "787105027a20e45c77651a98b01a4d3b01b75a08",
+      "dependencies": [
+        "@azure/abort-controller",
+        "@azure/core-util",
+        "@azure/logger",
+        "tslib@2.9.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/core-lro/-/core-lro-2.7.2.tgz"
+    },
+    "@azure/core-paging@1.7.0": {
+      "integrity": "59597a2f5438ba3c6c8789fc870f69e0e78531a8",
+      "dependencies": [
+        "tslib@2.9.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/core-paging/-/core-paging-1.7.0.tgz"
+    },
+    "@azure/core-process@1.0.0": {
+      "integrity": "c3af1c17223d6538e1b36967ddc94cdae532cb83",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/core-process/-/core-process-1.0.0.tgz"
+    },
+    "@azure/core-rest-pipeline@1.25.1": {
+      "integrity": "sha512-fTIA3CAm/cdODqiXkO6jYOIkU2Ylld7vq65KGc70gTwl12sLQsC8v7I5t6tp2N2CfUONzZBXyeFw7KEu6Ks2zg==",
+      "dependencies": [
+        "@azure/abort-controller",
+        "@azure/core-auth",
+        "@azure/core-tracing",
+        "@azure/core-util",
+        "@azure/logger",
+        "@typespec/ts-http-runtime",
+        "tslib@2.9.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/core-rest-pipeline/-/core-rest-pipeline-1.25.1.tgz"
+    },
+    "@azure/core-tracing@1.4.0": {
+      "integrity": "d657a700e24d256d195e628a795db6a8cc475eab",
+      "dependencies": [
+        "tslib@2.9.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/core-tracing/-/core-tracing-1.4.0.tgz"
+    },
+    "@azure/core-util@1.14.0": {
+      "integrity": "7ce9fe57958f132dd422573856e5a45c7232bb04",
+      "dependencies": [
+        "@azure/abort-controller",
+        "@typespec/ts-http-runtime",
+        "tslib@2.9.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/core-util/-/core-util-1.14.0.tgz"
+    },
+    "@azure/core-xml@1.6.1": {
+      "integrity": "sha512-u+SvC+010CAdbqfGJki2Ppk8LVReOpSRM/xbNqHe53IXgXEWkq4lJkCw3cBvHN8OtGAusQ2eI/AGfFmreaHFRw==",
+      "dependencies": [
+        "fast-xml-parser",
+        "tslib@2.9.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/core-xml/-/core-xml-1.6.1.tgz"
+    },
+    "@azure/identity@4.14.1": {
+      "integrity": "sha512-HHuuFrmN1uuF9D5A6aAo5eHzNFNX4Q+P4SksZqDKse5YaJFFy/zDLG3wXHEV2FVGgetZ3QM8jGURNBtnQYf1NQ==",
+      "dependencies": [
+        "@azure/abort-controller",
+        "@azure/core-auth",
+        "@azure/core-client",
+        "@azure/core-process",
+        "@azure/core-rest-pipeline",
+        "@azure/core-tracing",
+        "@azure/core-util",
+        "@azure/logger",
+        "@azure/msal-browser",
+        "@azure/msal-node",
+        "open",
+        "tslib@2.9.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/identity/-/identity-4.14.1.tgz"
+    },
+    "@azure/logger@1.4.0": {
+      "integrity": "3d5a627fe59a276ece7487a79dd92ad5c508c339",
+      "dependencies": [
+        "@typespec/ts-http-runtime",
+        "tslib@2.9.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/logger/-/logger-1.4.0.tgz"
+    },
+    "@azure/msal-browser@5.29.1": {
+      "integrity": "sha512-+TMoU/4h3KYUvQKZH+p1/9/iDaepDlVJQ7UMUAB6q8prPsMfsOoqA9m2alpPqLUQ48Bp7sXqN2wdhA9rOg9q1A==",
+      "dependencies": [
+        "@azure/msal-common"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/msal-browser/-/msal-browser-5.29.1.tgz"
+    },
+    "@azure/msal-common@16.16.2": {
+      "integrity": "sha512-IVoPgAup0hnpzwC8esxPxrrnDDVe0n3mmK+UU3JRmKWySKxBQrl+a30tTP3okmJ9Wc7dh+IgoNaUXkCxb2DBSg==",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/msal-common/-/msal-common-16.16.2.tgz"
+    },
+    "@azure/msal-node@7.2.2": {
+      "integrity": "sha512-MjsAHC+KUSXYYC8P57lVXy5IgSeO+PraXzLLHZI6hcX7nx/hCokY6gTPm2JcKLI3W88mu7ozjObBVGKExZUhww==",
+      "dependencies": [
+        "@azure/msal-common",
+        "jsonwebtoken"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/msal-node/-/msal-node-7.2.2.tgz"
+    },
+    "@azure/storage-blob@12.34.0": {
+      "integrity": "sha512-cXDTCAMwDx8Ng9yUe82kOOd2kPnZ8AQqe4FkLMcpaQ3Mvr3/PXVdvRhyP0FtY5/U5Oh6JGk3EcEibaFOymRLFw==",
+      "dependencies": [
+        "@azure/abort-controller",
+        "@azure/core-auth",
+        "@azure/core-client",
+        "@azure/core-http-compat",
+        "@azure/core-lro",
+        "@azure/core-paging",
+        "@azure/core-rest-pipeline",
+        "@azure/core-tracing",
+        "@azure/core-util",
+        "@azure/core-xml",
+        "@azure/logger",
+        "@azure/storage-common",
+        "apache-arrow",
+        "events",
+        "tslib@2.9.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/storage-blob/-/storage-blob-12.34.0.tgz"
+    },
+    "@azure/storage-common@12.5.0_@azure+core-client@1.11.2": {
+      "integrity": "9db1d698f26ef4b56a54a600046a765ea1bba316",
+      "dependencies": [
+        "@azure/abort-controller",
+        "@azure/core-auth",
+        "@azure/core-http-compat",
+        "@azure/core-rest-pipeline",
+        "@azure/core-tracing",
+        "@azure/core-util",
+        "@azure/logger",
+        "events",
+        "tslib@2.9.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@azure/storage-common/-/storage-common-12.5.0.tgz"
+    },
+    "@napi-rs/canvas-android-arm64@1.1.0": {
+      "integrity": "sha512-mKrSmRyhWK4q699Q1xthbZIZi7JBvLtsRNnOZAeFaLPOFT1yo8y82aRC2nNZbXTGJXU7fVDONgGQPr0vo3kerw==",
+      "os": ["android"],
+      "cpu": ["arm64"],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@napi-rs/canvas-android-arm64/-/canvas-android-arm64-1.1.0.tgz"
+    },
+    "@napi-rs/canvas-darwin-arm64@1.1.0": {
+      "integrity": "sha512-iqwST4g0oH+x8VCpBIYh+MYokv/mVvkM+v9oJGB0d9A3P2qBh42ogJlVyWq9SpPCrAjS7tplMb1D3OIfxl+utw==",
+      "os": ["darwin"],
+      "cpu": ["arm64"],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@napi-rs/canvas-darwin-arm64/-/canvas-darwin-arm64-1.1.0.tgz"
+    },
+    "@napi-rs/canvas-darwin-x64@1.1.0": {
+      "integrity": "sha512-jkeA8eVTxDum03LTvc32YJ28F6KB1U0gYwnWMfOAUQZvWWEh/kvONby4iWGJx3+Tw45UqMGMXjtw2GKNVZDhVg==",
+      "os": ["darwin"],
+      "cpu": ["x64"],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@napi-rs/canvas-darwin-x64/-/canvas-darwin-x64-1.1.0.tgz"
+    },
+    "@napi-rs/canvas-linux-arm-gnueabihf@1.1.0": {
+      "integrity": "sha512-Y4YkKG1ijoqkgUdTEEBNG4k+2BK5bR5jGL6S56YxCXYPwGfUd5nED8/74xyc7z+bpixPasCjSYoP3xYPOIGNxw==",
+      "os": ["linux"],
+      "cpu": ["arm"],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@napi-rs/canvas-linux-arm-gnueabihf/-/canvas-linux-arm-gnueabihf-1.1.0.tgz"
+    },
+    "@napi-rs/canvas-linux-arm64-gnu@1.1.0": {
+      "integrity": "sha512-dE/XthqYkiWcBVtKFlZbUXwAYfDuQGqDWixznipJNmevLGpprNnTVQZyftm1RZJudkIOn2EkzYZDMMETM08Row==",
+      "os": ["linux"],
+      "cpu": ["arm64"],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@napi-rs/canvas-linux-arm64-gnu/-/canvas-linux-arm64-gnu-1.1.0.tgz"
+    },
+    "@napi-rs/canvas-linux-arm64-musl@1.1.0": {
+      "integrity": "sha512-DqZ/CMcHlhU56pPjv9AP0h3U7MFQ5LzC1HzMyRMotL+PFsJmZJA/ziApPYVyyz78DaVLhI8t3So3ztqtijbYpg==",
+      "os": ["linux"],
+      "cpu": ["arm64"],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@napi-rs/canvas-linux-arm64-musl/-/canvas-linux-arm64-musl-1.1.0.tgz"
+    },
+    "@napi-rs/canvas-linux-riscv64-gnu@1.1.0": {
+      "integrity": "sha512-kJ7m5n2VffxWXM5QGa5lfq8ZN4LdOJEoz3aAJAmIqYvKiZw1gRdXqpucnRXsF6D9nLYiiIlevaAtAclR7c5ilg==",
+      "os": ["linux"],
+      "cpu": ["riscv64"],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@napi-rs/canvas-linux-riscv64-gnu/-/canvas-linux-riscv64-gnu-1.1.0.tgz"
+    },
+    "@napi-rs/canvas-linux-x64-gnu@1.1.0": {
+      "integrity": "sha512-uQ9JuJlRhQdHyttcMWOiwLkfIqkqaB0YFUVe835LUe12THt2b51HXkTItq0fxWT1jdhUPX2ylWZ1walkJyD6GQ==",
+      "os": ["linux"],
+      "cpu": ["x64"],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@napi-rs/canvas-linux-x64-gnu/-/canvas-linux-x64-gnu-1.1.0.tgz"
+    },
+    "@napi-rs/canvas-linux-x64-musl@1.1.0": {
+      "integrity": "sha512-has4CPPAkkCac/LZ13VAw5p+MJLdaKVoyrhumN/A7uJd6960xYkJNDZgUebyxiha82AFzXx6RV+QJg5qGG079g==",
+      "os": ["linux"],
+      "cpu": ["x64"],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@napi-rs/canvas-linux-x64-musl/-/canvas-linux-x64-musl-1.1.0.tgz"
+    },
+    "@napi-rs/canvas-win32-arm64-msvc@1.1.0": {
+      "integrity": "sha512-MJnktLKNijmXqdjTughHDZ9TDLZ9uUm2hvFXqaOqn0+w7lphXFnft6bpSgQAc9U1exc20UGIBlzGu9+kiCj9Ag==",
+      "os": ["win32"],
+      "cpu": ["arm64"],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@napi-rs/canvas-win32-arm64-msvc/-/canvas-win32-arm64-msvc-1.1.0.tgz"
+    },
+    "@napi-rs/canvas-win32-x64-msvc@1.1.0": {
+      "integrity": "sha512-08575bFk7iiadxap4h+JxgGut9xDCHAGum6wh0eInN53zEMImkmEHi5MushX2FOmNO7qRNX7BPiDC5ZYBwHeEg==",
+      "os": ["win32"],
+      "cpu": ["x64"],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@napi-rs/canvas-win32-x64-msvc/-/canvas-win32-x64-msvc-1.1.0.tgz"
+    },
+    "@napi-rs/canvas@1.1.0": {
+      "integrity": "sha512-k+ph/D8H9GS8ZZ48okvHrKeJynkqAA1kMUZRuzRWNlQUDHXngq7oRaWMZBdmSfd9ZhVy9bwNKei/7wMboI/uMg==",
+      "optionalDependencies": [
+        "@napi-rs/canvas-android-arm64",
+        "@napi-rs/canvas-darwin-arm64",
+        "@napi-rs/canvas-darwin-x64",
+        "@napi-rs/canvas-linux-arm-gnueabihf",
+        "@napi-rs/canvas-linux-arm64-gnu",
+        "@napi-rs/canvas-linux-arm64-musl",
+        "@napi-rs/canvas-linux-riscv64-gnu",
+        "@napi-rs/canvas-linux-x64-gnu",
+        "@napi-rs/canvas-linux-x64-musl",
+        "@napi-rs/canvas-win32-arm64-msvc",
+        "@napi-rs/canvas-win32-x64-msvc"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@napi-rs/canvas/-/canvas-1.1.0.tgz"
+    },
+    "@nodable/entities@3.1.0": {
+      "integrity": "sha512-LsS/DjHr+uDM647Gru/cA8+J3a3HfhttwCKLyuoyN7yXTFCxKBtSgMQBvrW9yNPa2/zDRUNuGPaH5QUFoa4arQ==",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@nodable/entities/-/entities-3.1.0.tgz"
+    },
+    "@pdf-lib/standard-fonts@1.0.0": {
+      "integrity": "8ba691c4421f71662ed07c9a0294b44528af2d7f",
+      "dependencies": [
+        "pako"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@pdf-lib/standard-fonts/-/standard-fonts-1.0.0.tgz"
+    },
+    "@pdf-lib/upng@1.0.1": {
+      "integrity": "7dc9c636271aca007a9df4deaf2dd7e7960280cb",
+      "dependencies": [
+        "pako"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@pdf-lib/upng/-/upng-1.0.1.tgz"
+    },
+    "@types/node@25.9.9": {
+      "integrity": "sha512-b4e2xxj/yMeT2hNlD6x7zNFiQK2Dlmkb9CQ6v3/1G2RezKN4YS2lcEv8lzGm1mhs4f2lM4yNAMI/zUDBZBBt7w==",
+      "dependencies": [
+        "undici-types"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@types/node/-/node-25.9.9.tgz"
+    },
+    "@typespec/ts-http-runtime@0.3.10": {
+      "integrity": "sha512-vddvvtZ7sejSlCv+OIkn2ztjB1O31Fc2JsxI/YK725r3elXXlF/J3o3lbXJFRhoeWRWK1tjdZ+GTi6Fdtrp+EA==",
+      "dependencies": [
+        "http-proxy-agent",
+        "https-proxy-agent",
+        "tslib@2.9.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@typespec/ts-http-runtime/-/ts-http-runtime-0.3.10.tgz"
+    },
+    "agent-base@9.0.0": {
+      "integrity": "ec9efb08314e1e75b0852d74aabf9a387f99834e",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/agent-base/-/agent-base-9.0.0.tgz"
+    },
+    "anynum@1.0.1": {
+      "integrity": "2aac00e08dfad3726c1d462e60dbc2f831659a44",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/anynum/-/anynum-1.0.1.tgz"
+    },
+    "apache-arrow@21.2.0": {
+      "integrity": "3adc16eb816202687782065836cda6092ff7db51",
+      "dependencies": [
+        "@types/node",
+        "flatbuffers",
+        "json-with-bigint",
+        "tslib@2.9.1"
+      ],
+      "bin": true,
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/apache-arrow/-/apache-arrow-21.2.0.tgz"
+    },
+    "boolbase@2.0.0": {
+      "integrity": "832968d211d5c008d833b86e049bb3943036e5b1",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/boolbase/-/boolbase-2.0.0.tgz"
+    },
+    "buffer-equal-constant-time@1.0.1": {
+      "integrity": "f8e71132f7ffe6e01a5c9697a4c6f3e48d5cc819",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz"
+    },
+    "bundle-name@4.1.1": {
+      "integrity": "sha512-DdH81/zPLVS11EUgWq3tEu/xn+EzljlMYooDNdzWEnFha3R3NBMpMV1UqYIpjYHV/SgpFKMIX1Oh7o06SjM/oA==",
+      "dependencies": [
+        "run-applescript"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/bundle-name/-/bundle-name-4.1.1.tgz"
+    },
+    "css-select@7.0.0": {
+      "integrity": "7532bab5977b1f0e83bc16036661dbe0968b4dec",
+      "dependencies": [
+        "boolbase",
+        "css-what",
+        "domhandler@6.0.1",
+        "domutils@4.0.2",
+        "nth-check"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/css-select/-/css-select-7.0.0.tgz"
+    },
+    "css-what@8.0.0": {
+      "integrity": "237889d60c4afef4736892f39e133ab4c8c21f0c",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/css-what/-/css-what-8.0.0.tgz"
+    },
+    "cssomnom@0.1.11": {
+      "integrity": "sha512-P4RkO1Sq2Ual77xypEmAc4MkM5k2Ha4UwtBPCOpJmXculGCYPgzsU/xnOCy084esZaPePgGkkJg4Il/HE7GS5A==",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/cssomnom/-/cssomnom-0.1.11.tgz"
+    },
+    "debug@4.4.3": {
+      "integrity": "c6ae432d9bd9662582fce08709b038c58e9e3d6a",
+      "dependencies": [
+        "ms"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/debug/-/debug-4.4.3.tgz"
+    },
+    "default-browser-id@5.0.1": {
+      "integrity": "f7a7ccb8f5104bf8e0f71ba3b1ccfa5eafdb21e8",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/default-browser-id/-/default-browser-id-5.0.1.tgz"
+    },
+    "default-browser@5.5.1": {
+      "integrity": "1790affc52680fbb11e17cab2752d69aa2a37d2c",
+      "dependencies": [
+        "bundle-name",
+        "default-browser-id"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/default-browser/-/default-browser-5.5.1.tgz"
+    },
+    "define-lazy-prop@3.0.0": {
+      "integrity": "dbb19adfb746d7fc6d734a06b72f4a00d021255f",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/define-lazy-prop/-/define-lazy-prop-3.0.0.tgz"
+    },
+    "dom-serializer@2.0.0": {
+      "integrity": "e41b802e1eedf9f6cae183ce5e622d789d7d8e53",
+      "dependencies": [
+        "domelementtype@2.3.0",
+        "domhandler@5.0.3",
+        "entities@4.5.0"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/dom-serializer/-/dom-serializer-2.0.0.tgz"
+    },
+    "dom-serializer@3.1.1": {
+      "integrity": "54be70ee4fcc2da010f488165e62294798dc57d3",
+      "dependencies": [
+        "domelementtype@3.0.0",
+        "domhandler@6.0.1",
+        "entities@8.1.0"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/dom-serializer/-/dom-serializer-3.1.1.tgz"
+    },
+    "domelementtype@2.3.0": {
+      "integrity": "5c45e8e869952626331d7aab326d01daf65d589d",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/domelementtype/-/domelementtype-2.3.0.tgz"
+    },
+    "domelementtype@3.0.0": {
+      "integrity": "e6c0a24bd39ca5eb7ea67a98d2f699497d7bcc55",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/domelementtype/-/domelementtype-3.0.0.tgz"
+    },
+    "domhandler@5.0.3": {
+      "integrity": "cc385f7f751f1d1fc650c21374804254538c7d31",
+      "dependencies": [
+        "domelementtype@2.3.0"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/domhandler/-/domhandler-5.0.3.tgz"
+    },
+    "domhandler@6.0.1": {
+      "integrity": "75f351a03a6e10c35e08418f9cf0d287e00797cf",
+      "dependencies": [
+        "domelementtype@3.0.0"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/domhandler/-/domhandler-6.0.1.tgz"
+    },
+    "domutils@3.2.2": {
+      "integrity": "edbfe2b668b0c1d97c24baf0f1062b132221bc78",
+      "dependencies": [
+        "dom-serializer@2.0.0",
+        "domelementtype@2.3.0",
+        "domhandler@5.0.3"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/domutils/-/domutils-3.2.2.tgz"
+    },
+    "domutils@4.0.2": {
+      "integrity": "0c1ac1fdbe8f554a60a6f5eb143ee85630327c94",
+      "dependencies": [
+        "dom-serializer@3.1.1",
+        "domelementtype@3.0.0",
+        "domhandler@6.0.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/domutils/-/domutils-4.0.2.tgz"
+    },
+    "ecdsa-sig-formatter@1.0.11": {
+      "integrity": "ae0f0fa2d85045ef14a817daa3ce9acd0489e5bf",
+      "dependencies": [
+        "safe-buffer"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.11.tgz"
+    },
+    "entities@4.5.0": {
+      "integrity": "5d268ea5e7113ec74c4d033b79ea5a35a488fb48",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/entities/-/entities-4.5.0.tgz"
+    },
+    "entities@7.0.1": {
+      "integrity": "26e8a88889db63417dcb9a1e79a3f1bc92b5976b",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/entities/-/entities-7.0.1.tgz"
+    },
+    "entities@8.1.0": {
+      "integrity": "9632d69619ebdbe0cf0ef22f53088fe5a2163d86",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/entities/-/entities-8.1.0.tgz"
+    },
+    "events@3.3.0": {
+      "integrity": "31a95ad0a924e2d2c419a813aeb2c4e878ea7400",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/events/-/events-3.3.0.tgz"
+    },
+    "fast-xml-builder@1.3.1": {
+      "integrity": "ef05b353b45597483dfb09d450a062a2baec3a82",
+      "dependencies": [
+        "path-expression-matcher",
+        "xml-naming"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/fast-xml-builder/-/fast-xml-builder-1.3.1.tgz"
+    },
+    "fast-xml-parser@5.12.0": {
+      "integrity": "sha512-/pXxRBtwxY9w8z7YbgsvIPPcPvFDsTbIkWwTQJhzNJPokj+TbN6ftmcv4j/pEQDvOCNnKGDzuk5Bo2oogIOiFg==",
+      "dependencies": [
+        "@nodable/entities",
+        "fast-xml-builder",
+        "is-unsafe",
+        "path-expression-matcher",
+        "strnum",
+        "xml-naming"
+      ],
+      "bin": true,
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/fast-xml-parser/-/fast-xml-parser-5.12.0.tgz"
+    },
+    "flatbuffers@25.9.23": {
+      "integrity": "346811557fe9312ab5647535e793c761e9c81eb1",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/flatbuffers/-/flatbuffers-25.9.23.tgz"
+    },
+    "html-escaper@3.0.3": {
+      "integrity": "4d336674652beb1dcbc29ef6b6ba7f6be6fdfed6",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/html-escaper/-/html-escaper-3.0.3.tgz"
+    },
+    "htmlparser2@10.1.0": {
+      "integrity": "fe3f2e12c73b6e462d4e10395db9c1119e4d6ae4",
+      "dependencies": [
+        "domelementtype@2.3.0",
+        "domhandler@5.0.3",
+        "domutils@3.2.2",
+        "entities@7.0.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/htmlparser2/-/htmlparser2-10.1.0.tgz"
+    },
+    "http-proxy-agent@9.1.0": {
+      "integrity": "fd8b39dcb58ac8046139e5f4ea80de78e8beaf7b",
+      "dependencies": [
+        "agent-base",
+        "debug",
+        "proxy-agent-negotiate"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/http-proxy-agent/-/http-proxy-agent-9.1.0.tgz"
+    },
+    "https-proxy-agent@9.1.0": {
+      "integrity": "a9f60f79bc1578c37b166dd7f58b6bcb5c57e44b",
+      "dependencies": [
+        "agent-base",
+        "debug",
+        "proxy-agent-negotiate"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/https-proxy-agent/-/https-proxy-agent-9.1.0.tgz"
+    },
+    "ipaddr.js@2.5.0": {
+      "integrity": "7d4b6c39f9392fb61cf807de6e425e22c10e061f",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/ipaddr.js/-/ipaddr.js-2.5.0.tgz"
+    },
+    "is-docker@3.0.0": {
+      "integrity": "90093aa3106277d8a77a5910dbae71747e15a200",
+      "bin": true,
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/is-docker/-/is-docker-3.0.0.tgz"
+    },
+    "is-in-ssh@1.0.0": {
+      "integrity": "8eb73c1cabba77748d389588eeea132a63057622",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/is-in-ssh/-/is-in-ssh-1.0.0.tgz"
+    },
+    "is-inside-container@1.0.0": {
+      "integrity": "e81fba699662eb31dbdaf26766a61d4814717ea4",
+      "dependencies": [
+        "is-docker"
+      ],
+      "bin": true,
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/is-inside-container/-/is-inside-container-1.0.0.tgz"
+    },
+    "is-unsafe@2.0.3": {
+      "integrity": "sha512-ZBllczCCO267vgdFb6Tq3pv+LhHaCiGMdr+ZsuL+OopruAg7S+3ZDs1vD0RPC0uSrkjzbraxaGjtX1YBxjPeFQ==",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/is-unsafe/-/is-unsafe-2.0.3.tgz"
+    },
+    "is-wsl@3.1.1": {
+      "integrity": "327897b26832a3eb117da6c27492d04ca132594f",
+      "dependencies": [
+        "is-inside-container"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/is-wsl/-/is-wsl-3.1.1.tgz"
+    },
+    "jose@6.2.17": {
+      "integrity": "sha512-wOuK9V1yujQFH5S0ZWmLcDZN7+IKh9bUCC2ZPCf2HDlol3WWHy+PPyNjEI75FXRLMp3vDKQcupP59xhVU95hcg==",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/jose/-/jose-6.2.17.tgz"
+    },
+    "json-with-bigint@3.5.12": {
+      "integrity": "9f6bf722a9847ed72fa9b217b2b66181227c454c",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/json-with-bigint/-/json-with-bigint-3.5.12.tgz"
+    },
+    "jsonwebtoken@9.0.3": {
+      "integrity": "6cd57ab01e9b0ac07cb847d53d3c9b6ee31f7ae2",
+      "dependencies": [
+        "jws",
+        "lodash.includes",
+        "lodash.isboolean",
+        "lodash.isinteger",
+        "lodash.isnumber",
+        "lodash.isplainobject",
+        "lodash.isstring",
+        "lodash.once",
+        "ms",
+        "semver"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/jsonwebtoken/-/jsonwebtoken-9.0.3.tgz"
+    },
+    "jwa@2.0.1": {
+      "integrity": "bf8176d1ad0cd72e0f3f58338595a13e110bc804",
+      "dependencies": [
+        "buffer-equal-constant-time",
+        "ecdsa-sig-formatter",
+        "safe-buffer"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/jwa/-/jwa-2.0.1.tgz"
+    },
+    "jws@4.0.1": {
+      "integrity": "07edc1be8fac20e677b283ece261498bd38f0690",
+      "dependencies": [
+        "jwa",
+        "safe-buffer"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/jws/-/jws-4.0.1.tgz"
+    },
+    "linkedom@0.18.15": {
+      "integrity": "sha512-o0w7eD/SvoCao+pUi6dzocCLuMR11g4Tv/et0W2OUzwWmUcewntSzyl+Ua/K+0yKym0Y/Mav3nFAaI5Av5jvZg==",
+      "dependencies": [
+        "css-select",
+        "cssomnom",
+        "html-escaper",
+        "htmlparser2",
+        "uhyphen"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/linkedom/-/linkedom-0.18.15.tgz"
+    },
+    "lodash.includes@4.3.0": {
+      "integrity": "60bb98a87cb923c68ca1e51325483314849f553f",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lodash.includes/-/lodash.includes-4.3.0.tgz"
+    },
+    "lodash.isboolean@3.0.3": {
+      "integrity": "6c2e171db2a257cd96802fd43b01b20d5f5870f6",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz"
+    },
+    "lodash.isinteger@4.0.4": {
+      "integrity": "619c0af3d03f8b04c31f5882840b77b11cd68343",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz"
+    },
+    "lodash.isnumber@3.0.3": {
+      "integrity": "3ce76810c5928d03352301ac287317f11c0b1ffc",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz"
+    },
+    "lodash.isplainobject@4.0.6": {
+      "integrity": "7c526a52d89b45c45cc690b88163be0497f550cb",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz"
+    },
+    "lodash.isstring@4.0.1": {
+      "integrity": "d527dfb5456eca7cc9bb95d5daeaf88ba54a5451",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lodash.isstring/-/lodash.isstring-4.0.1.tgz"
+    },
+    "lodash.once@4.1.1": {
+      "integrity": "0dd3971213c7c56df880977d504c88fb471a97ac",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/lodash.once/-/lodash.once-4.1.1.tgz"
+    },
+    "ms@2.1.3": {
+      "integrity": "574c8138ce1d2b5861f0b44579dbadd60c6615b2",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/ms/-/ms-2.1.3.tgz"
+    },
+    "nth-check@3.0.1": {
+      "integrity": "a5ede96060f7f0b74d7d3d8425f2a8f0610c5776",
+      "dependencies": [
+        "boolbase"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/nth-check/-/nth-check-3.0.1.tgz"
+    },
+    "open@11.0.4": {
+      "integrity": "sha512-++Zlftm0kVLPmzC06t6epuWmcRMDbI4z5P3NNX979WA/k23+NtSOynEGzsVfZwguKw2mi5umVgnBlJQMwRz4Pg==",
+      "dependencies": [
+        "default-browser",
+        "define-lazy-prop",
+        "is-in-ssh",
+        "is-inside-container",
+        "powershell-utils",
+        "wsl-utils"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/open/-/open-11.0.4.tgz"
+    },
+    "pako@1.0.11": {
+      "integrity": "6c9599d340d54dfd3946380252a35705a6b992bf",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/pako/-/pako-1.0.11.tgz"
+    },
+    "path-expression-matcher@1.6.2": {
+      "integrity": "567c73c07197e9dcef24e90edcdc571056599168",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/path-expression-matcher/-/path-expression-matcher-1.6.2.tgz"
+    },
+    "pdf-lib@1.17.1": {
+      "integrity": "9e7dd21261a0c1fb17992580885b39e7d08f451f",
+      "dependencies": [
+        "@pdf-lib/standard-fonts",
+        "@pdf-lib/upng",
+        "pako",
+        "tslib@1.14.1"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/pdf-lib/-/pdf-lib-1.17.1.tgz"
+    },
+    "pdfjs-dist@6.5.438": {
+      "integrity": "sha512-vg8Pw1x+AFKy4AMDvhuWl5cOYV8d698UoEANoFFhc79hqXDnZQqnOXoxw3HG907WHOg1JYOvLhP756boddFxpA==",
+      "optionalDependencies": [
+        "@napi-rs/canvas"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/pdfjs-dist/-/pdfjs-dist-6.5.438.tgz"
+    },
+    "powershell-utils@0.2.1": {
+      "integrity": "0853016f5b3c12d52b9571c8fe8059677d9ddbe2",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/powershell-utils/-/powershell-utils-0.2.1.tgz"
+    },
+    "proxy-agent-negotiate@1.1.0": {
+      "integrity": "de7d37aede9d71e74346125d6f484fac8092b615",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/proxy-agent-negotiate/-/proxy-agent-negotiate-1.1.0.tgz"
+    },
+    "run-applescript@7.1.0": {
+      "integrity": "2e9e54c4664ec3106c5b5630e249d3d6595c4911",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/run-applescript/-/run-applescript-7.1.0.tgz"
+    },
+    "safe-buffer@5.2.1": {
+      "integrity": "1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/safe-buffer/-/safe-buffer-5.2.1.tgz"
+    },
+    "semver@7.8.6": {
+      "integrity": "sha512-9lpSSU4Mly3mrtruwLs1eLK6+gzbzqeBFwRNjIjE+9LuDpWdYctrQlQ3ej1Ilgi7gknpsTRnPoLP8DpCHqHIJw==",
+      "bin": true,
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/semver/-/semver-7.8.6.tgz"
+    },
+    "strnum@2.5.1": {
+      "integrity": "sha512-UM4nTLWzQiDBseVxUGxN0wJzIk0UU89Qi7pKXz9qISo+lhviJikTuikBsK/oFRlpvYHvSdz0TVoLyQ+sEpYwxA==",
+      "dependencies": [
+        "anynum"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/strnum/-/strnum-2.5.1.tgz"
+    },
+    "tslib@1.14.1": {
+      "integrity": "cf2d38bdc34a134bcaf1091c41f6619e2f672d00",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/tslib/-/tslib-1.14.1.tgz"
+    },
+    "tslib@2.9.1": {
+      "integrity": "sha512-a4Ux9VKuIMHsOS7ENbEq6hK2ZGYIT27Rtl0E4eD9KqwxhKiQeMZE/9xb3IdYwWaSOyIBQLExhQgXDTYoiCxnWA==",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/tslib/-/tslib-2.9.1.tgz"
+    },
+    "uhyphen@0.2.0": {
+      "integrity": "8fdf0623314486e020a3c00ee5cc7a12fe722b81",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/uhyphen/-/uhyphen-0.2.0.tgz"
+    },
+    "undici-types@7.24.6": {
+      "integrity": "61275b485d7fd4e9d269c7cf04ec2873c9cc0f91",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/undici-types/-/undici-types-7.24.6.tgz"
+    },
+    "wsl-utils@1.0.1": {
+      "integrity": "sha512-c16PKLIRxBYpR3jSWsdS7SFp0COm5SOQdiFjY818dYFHJbMGuLBszpF07LBWmOS1uzrHa9VGdynsEgoeKy0oOQ==",
+      "dependencies": [
+        "is-wsl",
+        "powershell-utils"
+      ],
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/wsl-utils/-/wsl-utils-1.0.1.tgz"
+    },
+    "xml-naming@0.3.0": {
+      "integrity": "46c1e18bfe2858479982dd2accf34d16e749eda2",
+      "tarball": "https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/xml-naming/-/xml-naming-0.3.0.tgz"
+    }
+  },
+  "workspace": {
+    "dependencies": [
+      "npm:@azure/identity@4.14.1",
+      "npm:@azure/msal-browser@5.29.1",
+      "npm:@azure/storage-blob@12.34.0",
+      "npm:ipaddr.js@2.5.0",
+      "npm:jose@6.2.17",
+      "npm:linkedom@0.18.15",
+      "npm:pdf-lib@1.17.1",
+      "npm:pdfjs-dist@6.5.438"
+    ]
+  }
+}

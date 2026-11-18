@@ -218,7 +218,49 @@ not a completed article. Add to it as the design process continues.
   project names, size-dependent instructions, an unfinished mirrored sleeve
   change, a correction, and a failed save before connecting real sources.
 
-## Current artifact and next work
+## Service implementation resumed (2026-11-17)
+
+- **Copilot CLI session history:** Recovered the prior design decisions after a
+  disconnected build, then inspected the uncommitted `assistant/` backend instead
+  of recreating or overwriting it.
+- **Deno and TypeScript:** Continued the single HTTP service with separate agent
+  bearer-token and Entra page authentication, conditional Blob writes, progress
+  corrections, separate modifications, pending matching-part changes, and
+  completion/deletion cleanup. In-memory storage is explicitly local-only and
+  disposable, not the persistence implementation.
+- **LiveKit documentation:** Rechecked current Builder HTTP actions, colon-style
+  path parameters, secret-backed headers, non-silent results, and preview behavior.
+  Added exact tool setup and a ready-to-paste instructions file; this does not
+  claim a real Live preview call has succeeded.
+- **Source page:** Added a small Entra sign-in page with synthetic-first PDF and
+  public-URL ingestion, upload progress, explicit selection, and title-confirmed
+  deletion. Used MSAL bundled locally; the service token never reaches the page.
+- **Source checking:** Bounded HTTPS import and pinned DNS-to-connection behavior,
+  rejected redirects/private addresses, and retained extracted text rather than
+  raw HTML. Conservatively rejected image/drawing PDFs and obvious separated
+  columns rather than claiming text extraction understands charts. Semantic
+  completeness still needs representative source and model-context checks.
+- **Failure handling:** Added a regression case for a storage write that commits
+  but loses its response: do not clean up source files still referenced by the
+  saved project. Tested stale revisions and partial cleanup retries separately.
+- **Artifacts:** `assistant/.env.example` identifies the information the owner
+  must supply; `README.md`, `openapi.yaml`, and `builder-instructions.txt` document
+  deployment boundaries and the Builder configuration without recording secrets.
+  No Azure resources were created and no Ravelry account access was attempted.
+- **Docker Desktop:** After the owner installed and started Docker, built the
+  service image and exercised its actual non-root startup, bearer authentication,
+  project/progress APIs, management assets, and MSAL redirect bridge. The smoke
+  test used disposable synthetic memory state and removed its container afterward.
+  This caught two packaging issues that type checking alone did not: npm cache
+  registry consistency and dependency files needing the runtime user's ownership.
+  A local npm mirror was needed for the build network; the Dockerfile accepts a
+  non-secret registry build argument rather than hardcoding that environment.
+- **MSAL v5 documentation:** Verified the dedicated redirect bridge requirement
+  and changed the Entra callback configuration to `/manage/redirect`, distinct
+  from the source-management page. Real Entra login still needs the owner's app
+  registrations; no successful tenant login is claimed by the local checks.
+
+## Prior design-stage handoff (before implementation)
 
 - Design draft: `specs/personal-voice-assistant/design_draft.md`
 - The Overview and Problem sections were approved. Goals and Non-Goals were
