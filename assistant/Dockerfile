@@ -16,4 +16,4 @@ COPY --from=build --chown=deno:deno /app /app
 USER deno
 ENV PORT=8080
 EXPOSE 8080
-CMD ["run", "--cached-only", "--frozen", "--allow-net", "--allow-env", "--allow-read=/app,/deno-dir", "src/main.ts"]
+CMD ["run", "--cached-only", "--frozen", "--allow-net", "--allow-env", "--allow-sys=osRelease", "--allow-read=/app,/deno-dir", "src/main.ts"]

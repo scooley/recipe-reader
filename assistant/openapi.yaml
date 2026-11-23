@@ -79,12 +79,11 @@ paths:
               type: object
               required: [title]
               properties:
-                title: {
-                  type: string,
-                  minLength: 1,
-                  maxLength: 120,
-                  pattern: '^[^\r\n]+$',
-                }
+                title:
+                  type: string
+                  minLength: 1
+                  maxLength: 120
+                  pattern: '^[^\r\n]+$'
       responses:
         "201": { $ref: "#/components/responses/Project" }
         default: { $ref: "#/components/responses/Error" }
@@ -154,16 +153,14 @@ paths:
               type: object
               required: [file, expectedRevision]
               properties:
-                file: {
-                  type: string,
-                  format: binary,
-                  description: "PDF bytes, maximum 25 MiB.",
-                }
-                expectedRevision: {
-                  type: string,
-                  pattern: '^[1-9]\d*$',
-                  description: Decimal revision as a multipart text field.,
-                }
+                file:
+                  type: string
+                  format: binary
+                  description: PDF bytes, maximum 25 MiB.
+                expectedRevision:
+                  type: string
+                  pattern: '^[1-9]\d*$'
+                  description: Decimal revision as a multipart text field.
       responses:
         "200": { $ref: "#/components/responses/Project" }
         default: { $ref: "#/components/responses/Error" }
@@ -242,21 +239,19 @@ paths:
           application/json:
             schema:
               type: object
-              required: [
-                expectedRevision,
-                location,
-                change,
-                consequences,
-                pendingFollowUps,
-              ]
+              required:
+                - expectedRevision
+                - location
+                - change
+                - consequences
+                - pendingFollowUps
               properties:
                 expectedRevision: { $ref: "#/components/schemas/Revision" }
                 location: { type: string, minLength: 1, maxLength: 200 }
                 change: { type: string, minLength: 1, maxLength: 2000 }
                 consequences: { $ref: "#/components/schemas/ShortTextArray" }
-                pendingFollowUps: {
-                  $ref: "#/components/schemas/ShortTextArray",
-                }
+                pendingFollowUps:
+                  $ref: "#/components/schemas/ShortTextArray"
       responses:
         "200": { $ref: "#/components/responses/Project" }
         default: { $ref: "#/components/responses/Error" }
@@ -430,10 +425,9 @@ components:
         location: { type: string }
         change: { type: string }
         consequences: { type: array, items: { type: string } }
-        followUps: {
-          type: array,
-          items: { $ref: "#/components/schemas/FollowUp" },
-        }
+        followUps:
+          type: array
+          items: { $ref: "#/components/schemas/FollowUp" }
         reportedAt: { type: string, format: date-time }
     Source:
       type: object
@@ -445,18 +439,17 @@ components:
         available: { type: boolean }
     Project:
       type: object
-      required: [
-        id,
-        title,
-        status,
-        revision,
-        createdAt,
-        updatedAt,
-        progress,
-        progressHistory,
-        modifications,
-        source,
-      ]
+      required:
+        - id
+        - title
+        - status
+        - revision
+        - createdAt
+        - updatedAt
+        - progress
+        - progressHistory
+        - modifications
+        - source
       properties:
         id: { type: string, format: uuid }
         title: { type: string }
@@ -468,14 +461,12 @@ components:
           oneOf:
             - { $ref: "#/components/schemas/Progress" }
             - { type: "null" }
-        progressHistory: {
-          type: array,
-          items: { $ref: "#/components/schemas/Progress" },
-        }
-        modifications: {
-          type: array,
-          items: { $ref: "#/components/schemas/Modification" },
-        }
+        progressHistory:
+          type: array
+          items: { $ref: "#/components/schemas/Progress" }
+        modifications:
+          type: array
+          items: { $ref: "#/components/schemas/Modification" }
         source:
           oneOf:
             - { $ref: "#/components/schemas/Source" }

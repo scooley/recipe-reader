@@ -15,8 +15,8 @@
     "fmt": "deno fmt --check .",
     "lint": "deno lint .",
     "test": "deno test --allow-read --allow-env tests/",
-    "start": "deno run --allow-net --allow-env --allow-read=dist,web src/main.ts",
-    "start:env": "deno run --env-file=.env --allow-net --allow-env --allow-read=dist,web src/main.ts"
+    "start": "deno run --allow-net --allow-env --allow-sys=osRelease --allow-read=dist,web src/main.ts",
+    "start:env": "deno run --env-file=.env --allow-net --allow-env --allow-sys=osRelease --allow-read=dist,web src/main.ts"
   },
   "exclude": ["dist/"],
   "lock": {

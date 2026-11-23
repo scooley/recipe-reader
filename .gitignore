@@ -19,3 +19,5 @@ assistant/.env.*
 !assistant/.env.example
 assistant/dist/
 assistant/node_modules/
+assistant/infra/*.local.bicepparam
+assistant/infra/*.json
