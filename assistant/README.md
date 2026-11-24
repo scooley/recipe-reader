@@ -110,10 +110,17 @@ does not automatically grant directory permissions. If the directory cannot
 issue a token for your account, resolve membership/sign-in policy before private
 use. Do not switch to `common`/`consumers` or remove issuer/owner validation.
 
-Entra registration remains a one-time portal step because the
+Entra registration remains separate from the Azure Bicep deployment because the
 [Graph Bicep applications reference](https://learn.microsoft.com/en-us/graph/templates/bicep/reference/applications?view=graph-bicep-1.0)
 states that personal-account permissions cannot deploy Graph Bicep resources.
 This does not require a corporate tenant or change the service's authentication.
+
+The portal instructions below work for the one-time setup. For separate Graph
+provisioning, this repository's `extensions/models/entra_public_application.ts`
+extends `@dougschaefer/azure-ad-app-registration` with
+`configurePublicApplication` and `ensureEnterpriseApplication`. It requires the
+installed `@dougschaefer/azure` extension, verifies the active tenant, and never
+creates client secrets or grants tenant-wide consent.
 
 ### 1. Register the two Entra apps once
 
@@ -129,6 +136,11 @@ In the subscription's directory:
    directory** from Entra Users. The latter may be a directory-local guest
    object for your personal account. Do not use an email address, app object ID,
    or user ID from another directory.
+
+When using Graph rather than the portal, also create each registration's local
+enterprise application (service principal). The Swamp
+`ensureEnterpriseApplication` method does this without creating credentials. A
+missing API service principal causes Microsoft sign-in error `AADSTS650052`.
 
 ### 2. Bootstrap Azure resources
 

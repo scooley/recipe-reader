@@ -82,20 +82,18 @@ const clients = {
   request: graphRequest,
 };
 
-export async function configurePublicApplication(
-  input: unknown,
-  context: Context,
+async function tenantRequest(
+  tenantId: string | undefined,
   api = clients,
 ) {
-  const args = ArgumentsSchema.parse(input);
-  const expectedTenant = z.uuid().parse(context.globalArgs.tenantId);
+  const expectedTenant = z.uuid().parse(tenantId);
   const account = z.object({ tenantId: z.uuid() }).parse(await api.account());
   if (account.tenantId !== expectedTenant) {
     throw new Error(
       "Active Azure tenant differs from the requested Entra tenant",
     );
   }
-  async function request(method: string, path: string, body?: unknown) {
+  return async (method: string, path: string, body?: unknown) => {
     const response = await api.request(method, path, body);
     if (response.status < 200 || response.status >= 300) {
       throw new Error(
@@ -105,8 +103,16 @@ export async function configurePublicApplication(
       );
     }
     return response.data;
-  }
+  };
+}
 
+export async function configurePublicApplication(
+  input: unknown,
+  context: Context,
+  api = clients,
+) {
+  const args = ArgumentsSchema.parse(input);
+  const request = await tenantRequest(context.globalArgs.tenantId, api);
   const { id, ...settings } = args;
   const body = { ...settings, signInAudience: "AzureADMyOrg" };
   let application: z.infer<typeof ApplicationSchema>;
@@ -141,14 +147,74 @@ export async function configurePublicApplication(
   return { dataHandles: [handle] };
 }
 
+const EnterpriseArgumentsSchema = z.object({ applicationId: z.uuid() });
+const EnterpriseApplicationSchema = z.object({
+  id: z.uuid(),
+  appId: z.uuid(),
+  servicePrincipalType: z.literal("Application"),
+  accountEnabled: z.boolean(),
+});
+
+export async function ensureEnterpriseApplication(
+  input: unknown,
+  context: Context,
+  api = clients,
+) {
+  const args = EnterpriseArgumentsSchema.parse(input);
+  const request = await tenantRequest(context.globalArgs.tenantId, api);
+  const application = ApplicationSchema.parse(
+    await request("GET", `/applications/${args.applicationId}`),
+  );
+  const filter = encodeURIComponent(`appId eq '${application.appId}'`);
+  const matches = z.object({ value: z.array(EnterpriseApplicationSchema) })
+    .parse(
+      await request(
+        "GET",
+        `/servicePrincipals?$filter=${filter}&$select=id,appId,servicePrincipalType,accountEnabled&$top=2`,
+      ),
+    );
+  if (matches.value.length > 1) {
+    throw new Error("Multiple service principals matched the application");
+  }
+  const principal = matches.value[0] ?? EnterpriseApplicationSchema.parse(
+    await request("POST", "/servicePrincipals", { appId: application.appId }),
+  );
+  if (principal.appId !== application.appId || !principal.accountEnabled) {
+    throw new Error(
+      "Service principal is disabled or belongs to a different application",
+    );
+  }
+  const handle = await context.writeResource(
+    "enterpriseApplication",
+    principal.id,
+    principal,
+  );
+  return { dataHandles: [handle] };
+}
+
 export const extension = {
   type: "@dougschaefer/azure-ad-app-registration",
+  resources: {
+    enterpriseApplication: {
+      description:
+        "Enabled local service principal for a single-tenant public application",
+      schema: EnterpriseApplicationSchema,
+      lifetime: "infinite",
+      garbageCollection: 5,
+    },
+  },
   methods: [{
     configurePublicApplication: {
       description:
         "Create or update a single-tenant public application without client secrets. An update requires its exact object id; creation rejects duplicate names.",
       arguments: ArgumentsSchema,
       execute: configurePublicApplication,
+    },
+    ensureEnterpriseApplication: {
+      description:
+        "Ensure a local service principal exists for a verified single-tenant registration, without credentials or tenant-wide consent grants.",
+      arguments: EnterpriseArgumentsSchema,
+      execute: ensureEnterpriseApplication,
     },
   }],
 };

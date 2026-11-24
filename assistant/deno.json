@@ -14,7 +14,7 @@
     "check": "deno check src/main.ts web/*.ts tests/*.test.ts",
     "fmt": "deno fmt --check .",
     "lint": "deno lint .",
-    "test": "deno test --allow-read --allow-env tests/",
+    "test": "deno test --allow-read --allow-env --allow-sys=osRelease tests/",
     "start": "deno run --allow-net --allow-env --allow-sys=osRelease --allow-read=dist,web src/main.ts",
     "start:env": "deno run --env-file=.env --allow-net --allow-env --allow-sys=osRelease --allow-read=dist,web src/main.ts"
   },

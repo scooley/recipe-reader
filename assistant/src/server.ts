@@ -155,7 +155,7 @@ export function createApp(
         scope: config.audience.startsWith("api://")
           ? `${config.audience}/${config.scope}`
           : `api://${config.audience}/${config.scope}`,
-        redirectUri: `${url.origin}/manage/redirect`,
+        redirectPath: "/manage/redirect",
       });
     }
     if (

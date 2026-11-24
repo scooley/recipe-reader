@@ -1,5 +1,6 @@
 import { generateKeyPair, SignJWT } from "jose";
 import { PDFDocument, StandardFonts } from "pdf-lib";
+import { ContainerClient } from "@azure/storage-blob";
 import { Auth } from "../src/auth.ts";
 import { readConfig } from "../src/config.ts";
 import { HttpError, StorageConflict } from "../src/errors.ts";
@@ -13,7 +14,7 @@ import {
   parsePublicUrl,
   pinnedRequestOptions,
 } from "../src/sources.ts";
-import { MemoryStore } from "../src/storage.ts";
+import { AzureStore, MemoryStore } from "../src/storage.ts";
 
 function assert(value: unknown, message = "Assertion failed"): asserts value {
   if (!value) throw new Error(message);
@@ -52,6 +53,41 @@ Deno.test("configuration fails closed for missing identifiers or non-loopback me
   await fails(() =>
     readConfig({ STORAGE_MODE: "memory", ASSISTANT_API_TOKEN: config.token })
   );
+});
+
+Deno.test("Azure startup checks container privacy without ACL-owner privileges and fails closed", async () => {
+  const originalProperties = ContainerClient.prototype.getProperties;
+  const originalAccessPolicy = ContainerClient.prototype.getAccessPolicy;
+  const store = new AzureStore({
+    ...config,
+    storageMode: "azure",
+    storageAccountUrl: "https://syntheticaccount.blob.core.windows.net",
+    storageContainer: "assistant",
+  });
+  ContainerClient.prototype.getAccessPolicy = () => {
+    throw new Error("Startup must not require ACL-owner privileges");
+  };
+  try {
+    const properties: Awaited<ReturnType<ContainerClient["getProperties"]>> = {
+      get _response(): never {
+        throw new Error(
+          "Privacy verification should only inspect parsed headers",
+        );
+      },
+    };
+    ContainerClient.prototype.getProperties = () => Promise.resolve(properties);
+    await store.verifyPrivateContainer();
+    for (const blobPublicAccess of ["blob", "container"] as const) {
+      properties.blobPublicAccess = blobPublicAccess;
+      await fails(() => store.verifyPrivateContainer());
+    }
+    ContainerClient.prototype.getProperties = () =>
+      Promise.reject(new Error("Storage authorization failed"));
+    await fails(() => store.verifyPrivateContainer());
+  } finally {
+    ContainerClient.prototype.getProperties = originalProperties;
+    ContainerClient.prototype.getAccessPolicy = originalAccessPolicy;
+  }
 });
 
 Deno.test("auth validates signed Entra claims, token class and service-token rotation", async () => {
@@ -608,8 +644,15 @@ Deno.test("page APIs accept only signed owner tokens; source selection and stati
   );
   equal(callback.headers.get("cross-origin-opener-policy"), null);
   equal(
-    (await (await call("/manage/config.json")).json()).redirectUri,
-    "https://assistant.invalid/manage/redirect",
+    (await (await call("/manage/config.json")).json()).redirectPath,
+    "/manage/redirect",
+  );
+  equal(
+    (await (await app(
+      new Request("http://assistant.invalid/manage/config.json"),
+    ))
+      .json()).redirectPath,
+    "/manage/redirect",
   );
   equal(
     (await call(`/v1/projects/${project.id}/delete`, "POST", {

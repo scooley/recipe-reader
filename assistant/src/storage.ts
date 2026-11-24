@@ -44,8 +44,8 @@ export class AzureStore implements ObjectStore {
   }
 
   async verifyPrivateContainer(): Promise<void> {
-    const access = await this.container.getAccessPolicy();
-    if (access.blobPublicAccess) {
+    const properties = await this.container.getProperties();
+    if (properties.blobPublicAccess) {
       throw new Error(
         "The assistant's Blob container must not allow anonymous access",
       );

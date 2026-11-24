@@ -49,13 +49,15 @@ await run(async () => {
     authority: string;
     clientId: string;
     scope: string;
-    redirectUri: string;
+    redirectPath: string;
   } = await configResponse.json();
   const client = new PublicClientApplication({
     auth: {
       clientId: config.clientId,
       authority: config.authority,
-      redirectUri: config.redirectUri,
+      // TLS terminates at the ingress, so use the browser's public origin.
+      redirectUri:
+        new URL(config.redirectPath, globalThis.location.origin).href,
     },
     cache: { cacheLocation: "sessionStorage" },
   });

@@ -1,5 +1,8 @@
 import { deepEqual, rejects } from "node:assert/strict";
-import { configurePublicApplication } from "./entra_public_application.ts";
+import {
+  configurePublicApplication,
+  ensureEnterpriseApplication,
+} from "./entra_public_application.ts";
 
 const tenantId = "00000000-0000-4000-8000-000000000001";
 const id = "00000000-0000-4000-8000-000000000002";
@@ -10,6 +13,48 @@ const application = {
   displayName: "test",
   signInAudience: "AzureADMyOrg",
 };
+
+Deno.test("enterprise application creation is credential-free and retries reuse the existing principal", async () => {
+  const principal = {
+    id,
+    appId,
+    servicePrincipalType: "Application",
+    accountEnabled: true,
+  };
+  const writes: unknown[] = [];
+  for (const exists of [false, true]) {
+    const requests: { method: string; path: string; body: unknown }[] = [];
+    await ensureEnterpriseApplication({ applicationId: id }, {
+      globalArgs: { tenantId },
+      writeResource: (_spec, name, data) => {
+        writes.push(data);
+        return Promise.resolve({ name });
+      },
+    }, {
+      account: () => Promise.resolve({ tenantId }),
+      request: (method, path, body) => {
+        requests.push({ method, path, body });
+        return Promise.resolve({
+          status: method === "POST" ? 201 : 200,
+          data: path.startsWith("/applications/")
+            ? application
+            : method === "POST"
+            ? principal
+            : { value: exists ? [principal] : [] },
+        });
+      },
+    });
+    deepEqual(
+      requests.filter((request) => request.method === "POST"),
+      exists ? [] : [{
+        method: "POST",
+        path: "/servicePrincipals",
+        body: { appId },
+      }],
+    );
+  }
+  deepEqual(writes, [principal, principal]);
+});
 
 Deno.test("tenant mismatch stops before any Graph request", async () => {
   await rejects(() =>
