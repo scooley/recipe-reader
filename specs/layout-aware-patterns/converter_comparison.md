@@ -90,8 +90,9 @@ measurements and cost sizing; current settings cannot be assumed adequate.
 ## Cost, licensing, and remaining work
 
 * No Azure inference or other paid conversion service was used in this test.
-  Local timings cannot establish a monthly Azure bill or prove the $0.10
-  assistance allowance is sufficient.
+  Local timings cannot establish a monthly Azure bill or prove an assistance
+  budget is sufficient. The design now uses a shared $25 monthly model budget
+  rather than the earlier $0.10 per-stage allowance.
 * Installed Docling, Docling Core, and Docling IBM Models packages declare MIT.
   Individual downloaded model licenses and the final dependency set still need
   deployment review; package licensing alone is not model-license clearance.
