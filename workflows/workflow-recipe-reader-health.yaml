@@ -1,0 +1,31 @@
+id: bde6a855-b6b7-4f52-b367-2364d6cf0b85
+name: recipe-reader-health
+description: Read-only HTTPS liveness check; does not verify storage or authentication.
+tags: {}
+jobs:
+  - name: main
+    description: Check the deployed assistant and assert its recorded health.
+    steps:
+      - name: probe
+        task:
+          type: behavior
+          behavior: recipe-reader-health
+          methodName: health
+        dependsOn: []
+        weight: 0
+        allowFailure: false
+      - name: assert-healthy
+        task:
+          type: assert
+          expr: >-
+            data.latest("recipe-reader-health", "health").attributes.ok &&
+            data.latest("recipe-reader-health", "health").attributes.tls == "verified"
+          message: Assistant /healthz must return HTTP 200 and JSON status ok over verified HTTPS.
+          severity: high
+        dependsOn:
+          - step: probe
+            condition:
+              type: succeeded
+    dependsOn: []
+    weight: 0
+version: 1

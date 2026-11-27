@@ -309,6 +309,31 @@ persisted application-log destination. `/healthz` checks process liveness, not
 ongoing Blob availability. Add monitoring deliberately if needed; deployment
 does not change LiveKit's retention settings.
 
+### Swamp health check
+
+From the repository root, run:
+
+```sh
+swamp extension install
+swamp workflow validate recipe-reader-health
+swamp workflow run recipe-reader-health
+```
+
+The persistent `recipe-reader-health` behavior targets the deployed service's
+`/healthz`. It requires HTTP 200, verified TLS, no redirect, and JSON
+`status: "ok"`. The workflow asserts the recorded result so an unreachable or
+unhealthy endpoint fails the run. The two-minute request timeout allows for
+scale-from-zero startup; it is not a voice-latency target. Frequent checks can
+keep the service warm and incur compute charges. Nothing is scheduled.
+
+This checks liveness only, not Blob access, Entra sign-in, or LiveKit tool
+authentication. Change the behavior's `globalArguments.url` after moving the
+deployment. Inspect the latest recorded result with:
+
+```sh
+swamp data query 'behavior("recipe-reader-health") && name == "health"' --select content --json
+```
+
 ## Local development
 
 Install Deno 2.9.6 (or use `npx --yes deno` in place of `deno` below).

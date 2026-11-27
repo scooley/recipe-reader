@@ -1,0 +1,20 @@
+type: "@dataverket/http/endpoint"
+typeVersion: 2026.11.12.1
+id: 1b851ddd-d0e2-4000-9b75-b342947c5a25
+name: recipe-reader-health
+version: 1
+tags: {}
+globalArguments:
+  url: >-
+    https://recipe-reader-ng37cnpu67zki.agreeablewater-2a8e0ad5.westus2.azurecontainerapps.io/healthz
+  expectStatus: 200
+  followRedirects: false
+  maxRedirects: 5
+  bodyContains: ""
+  bodyJson:
+    status: ok
+  bodyJsonShowValues: false
+  timeoutMs: 120000
+  caFile: ""
+  userAgent: swamp @dataverket/http
+methods: {}

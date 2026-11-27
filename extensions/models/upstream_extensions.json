@@ -62,5 +62,19 @@
     "filesChecksum": "948550651836f4db3e758fc780273cd0a56274e59dd5c53ef0d4c30b9ccbf210",
     "serverUrl": "https://swamp-club.com",
     "publishedChannel": "stable"
+  },
+  "@dataverket/http": {
+    "version": "2026.11.12.1",
+    "pulledAt": "2026-11-26T17:56:29.401Z",
+    "files": [
+      ".swamp/pulled-extensions/@dataverket/http/files/LICENSE.md",
+      ".swamp/pulled-extensions/@dataverket/http/files/README.md",
+      ".swamp/pulled-extensions/@dataverket/http/manifest.yaml",
+      ".swamp/pulled-extensions/@dataverket/http/models/endpoint.ts"
+    ],
+    "checksum": "cc43ec2dce75c0839ecfcc9b0bba7c8a5c21985fb2b18fbb75f17aa2937b9c94",
+    "filesChecksum": "824d8a34d07afd7e8f4b1b6929b67dffbf25f852a41d911cbc5c5ec0ab72769b",
+    "serverUrl": "https://swamp-club.com",
+    "publishedChannel": "stable"
   }
 }
