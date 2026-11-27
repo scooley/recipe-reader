@@ -346,6 +346,16 @@ scoped size resolution. These contracts are not yet exposed as
 working-instruction APIs or preview controls. Document review coverage is not a
 correctness guarantee.
 
+An [offline converter slice](converter/README.md) now delegates generic Markdown
+extraction to pinned PyMuPDF4LLM in heuristic mode, with PyMuPDF raw line/link
+evidence and full-page PNGs preserving diagrams and overlays. A separate
+TypeScript boundary validates source-bound manifests and serially checks page
+artifacts. Synthetic fixtures cover columns, short generic text, all-size
+values, rotation, and visual evidence; they are not hard-coded conversion rules.
+This does not yet implement the managed sandbox transport or evidence
+publication. Python dependencies use the Microsoft package proxy and a
+SHA-256-only lock.
+
 Existing source attachment now registers destination hashes and keys before I/O,
 uses empty placeholders followed by exact-ETag content writes, and verifies
 stored hashes before publication. Completion/deletion closes the source fence
@@ -365,7 +375,8 @@ together. Shared admission, full attempt recovery/retention, persisted
 document/addition publication, the sandbox/model clients, and preview remain
 later work. No new cloud resources, model calls, private samples, or deployments
 are part of this slice. All licensing, isolation, performance, accuracy and cost
-release gates remain outstanding.
+release gates remain outstanding. The converter image and Linux resource limits
+are unverified because the local Docker daemon was unavailable.
 
 ### Commands
 

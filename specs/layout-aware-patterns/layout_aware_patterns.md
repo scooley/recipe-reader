@@ -1,7 +1,7 @@
 # Layout-Aware Pattern Working Instructions
 
 * **Author:** @scooley
-* **Status:** Implementation started (Phase 1 foundation slice); fresh re-audit and release checks pending
+* **Status:** Phase 1 foundations and offline Phase 2 converter/artifact validation implemented; sandbox/model integration and release checks pending
 * **Date:** 2026-11-24
 * **Predecessor:** [Concept brief](./concepts_brief.md)
 * **Review:** [Consolidated findings](./consolidated_review_report.md)
@@ -28,9 +28,14 @@ active project's reference sections and active changes. Preview shows these
 together with original pages and specific unresolved issues.
 
 This is the approved implementation contract. Phase 1 document contracts and
-existing-route source-write fencing are implemented; converter/model integration,
-persisted working instructions and preview are not. No deployment, paid test,
-license purchase, or sample transmission is authorized.
+existing-route source-write fencing are implemented. The offline Phase 2 slice
+adds a content-agnostic PyMuPDF4LLM/PyMuPDF worker, hash-locked dependencies, an
+unbuilt image definition, and injected-reader artifact validation. Fixed paths
+and bounds are execution contracts; pattern-specific values are test fixtures,
+not converter logic. Managed sandbox/model integration, persisted working
+instructions and preview are not implemented. See the
+[converter status and unresolved gates](../../assistant/converter/README.md).
+No deployment, paid test, license purchase, or sample transmission is authorized.
 
 ## The Problem
 
