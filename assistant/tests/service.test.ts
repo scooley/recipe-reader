@@ -1,10 +1,11 @@
 import { generateKeyPair, SignJWT } from "jose";
 import { PDFDocument, StandardFonts } from "pdf-lib";
-import { ContainerClient } from "@azure/storage-blob";
+import { BlobClient, ContainerClient } from "@azure/storage-blob";
 import { Auth } from "../src/auth.ts";
 import { readConfig } from "../src/config.ts";
-import { HttpError, StorageConflict } from "../src/errors.ts";
+import { HttpError, StorageConflict, StorageUncertain } from "../src/errors.ts";
 import { Projects } from "../src/projects.ts";
+import { sha256 } from "../src/documents.ts";
 import { createApp } from "../src/server.ts";
 import {
   extractPdf,
@@ -342,6 +343,293 @@ Deno.test("failed staged upload is cleaned up without marking source available",
   );
   equal((await projects.detail(project.id)).source, null);
   equal((await store.list(`projects/${project.id}/sources/`)).length, 0);
+});
+
+function barrier(): {
+  reached: Promise<void>;
+  release: () => void;
+  pause: () => Promise<void>;
+} {
+  let arrived!: () => void;
+  let release!: () => void;
+  const reached = new Promise<void>((resolve) => arrived = resolve);
+  const wait = new Promise<void>((resolve) => release = resolve);
+  return {
+    reached,
+    release,
+    pause: () => {
+      arrived();
+      return wait;
+    },
+  };
+}
+
+class DelayedSourceStore extends MemoryStore {
+  readonly gate = barrier();
+  private paused = false;
+
+  constructor(
+    private readonly point: "placeholder" | "content" | "content-reply",
+  ) {
+    super();
+  }
+
+  override async put(...args: Parameters<MemoryStore["put"]>): Promise<string> {
+    const [key, bytes] = args;
+    const pause = !this.paused && key.endsWith("source.txt") &&
+      (this.point === "placeholder" ? bytes.length === 0 : bytes.length > 0);
+    if (!pause) return await super.put(...args);
+    this.paused = true;
+    if (this.point === "content-reply") {
+      const etag = await super.put(...args);
+      await this.gate.pause();
+      return etag;
+    }
+    await this.gate.pause();
+    return await super.put(...args);
+  }
+}
+
+for (const point of ["placeholder", "content", "content-reply"] as const) {
+  Deno.test(`completion fences delayed ${point} writes without claiming pending cleanup succeeded`, async () => {
+    const store = new DelayedSourceStore(point);
+    const projects = new Projects(store);
+    const project = await projects.create("Delayed source");
+    const pending = projects.attach(project.id, 1, {
+      kind: "web",
+      label: "synthetic",
+      text: "Private synthetic instructions",
+    }).then(() => null, (error: unknown) => error);
+    await store.gate.reached;
+    try {
+      // Registration is internal: it must not consume the owner's public revision.
+      equal((await projects.detail(project.id)).revision, 1);
+      await fails(() => projects.complete(project.id, 1), "partial_completion");
+      equal((await store.list(`projects/${project.id}/sources/`)).length, 0);
+      await fails(() => projects.sourceText(project.id), "not_found");
+    } finally {
+      store.gate.release();
+    }
+    const error = await pending;
+    assert(error instanceof HttpError);
+    equal(error.code, "project_closed");
+    await projects.complete(project.id, 2);
+    equal((await store.list(`projects/${project.id}/sources/`)).length, 0);
+  });
+}
+
+Deno.test("deletion retains its recovery root until an in-flight source writer has settled", async () => {
+  const store = new DelayedSourceStore("content");
+  const projects = new Projects(store);
+  const project = await projects.create("Deletion race");
+  const pending = projects.attach(project.id, 1, {
+    kind: "web",
+    label: "synthetic",
+    text: "Must never survive deletion",
+  }).then(() => null, (error: unknown) => error);
+  await store.gate.reached;
+  try {
+    await fails(
+      () => projects.delete(project.id, 1, project.title),
+      "partial_deletion",
+    );
+    assert(await store.stat(`projects/${project.id}/project.md`));
+  } finally {
+    store.gate.release();
+  }
+  assert(await pending instanceof HttpError);
+  await projects.delete(project.id, 2, project.title);
+  equal(await store.list(`projects/${project.id}/`), []);
+});
+
+Deno.test("a missing root prevents a delayed placeholder from acquiring source content", async () => {
+  const store = new DelayedSourceStore("placeholder");
+  const projects = new Projects(store);
+  const project = await projects.create("Missing root race");
+  const pending = projects.attach(project.id, 1, {
+    kind: "web",
+    label: "synthetic",
+    text: "Must not be written without a root",
+  }).then(() => null, (error: unknown) => error);
+  await store.gate.reached;
+  const key = `projects/${project.id}/project.md`;
+  const root = await store.stat(key);
+  assert(root);
+  await store.remove(key, root.etag);
+  store.gate.release();
+  const error = await pending;
+  assert(error instanceof HttpError && error.code === "source_save_uncertain");
+  const markers = await store.list(`projects/${project.id}/sources/`);
+  equal(markers.length, 1);
+  equal((await store.stat(markers[0]))?.size, 0);
+});
+
+Deno.test("late source publication cannot overwrite newer progress and a source read cannot outlive completion", async () => {
+  const store = new DelayedSourceStore("content");
+  const projects = new Projects(store);
+  const project = await projects.create("Progress race");
+  const pending = projects.attach(project.id, 1, {
+    kind: "web",
+    label: "synthetic",
+    text: "Original instructions",
+  }).then(() => null, (error: unknown) => error);
+  await store.gate.reached;
+  try {
+    await projects.reportProgress(project.id, 1, "setup", "Prepared needles");
+  } finally {
+    store.gate.release();
+  }
+  const error = await pending;
+  assert(error instanceof HttpError && error.code === "revision_conflict");
+  const detail = await projects.detail(project.id);
+  equal(detail.progress?.report, "Prepared needles");
+  equal(detail.source, null);
+  equal(await store.list(`projects/${project.id}/sources/`), []);
+
+  class DelayedReadStore extends MemoryStore {
+    readonly gate = barrier();
+    delay = false;
+    override async get(
+      ...args: Parameters<MemoryStore["get"]>
+    ): ReturnType<MemoryStore["get"]> {
+      const value = await super.get(...args);
+      if (this.delay && args[0].endsWith("source.txt")) {
+        this.delay = false;
+        await this.gate.pause();
+      }
+      return value;
+    }
+  }
+  const reads = new DelayedReadStore();
+  const reading = new Projects(reads);
+  const other = await reading.create("Read race");
+  await reading.attach(other.id, 1, {
+    kind: "web",
+    label: "synthetic",
+    text: "Private source before completion",
+  });
+  reads.delay = true;
+  const read = reading.sourceText(other.id).then(
+    () => null,
+    (error: unknown) => error,
+  );
+  await reads.gate.reached;
+  try {
+    await reading.complete(other.id, 2);
+  } finally {
+    reads.gate.release();
+  }
+  const readError = await read;
+  assert(readError instanceof HttpError && readError.code === "not_found");
+});
+
+Deno.test("registered evidence hashes remain distinct and corrupt source bytes are never served", async () => {
+  const store = new MemoryStore();
+  const projects = new Projects(store);
+  const project = await projects.create("Evidence hashes");
+  const text = "Checked synthetic instructions";
+  const pdf = new Uint8Array([1, 2, 3]);
+  await projects.attach(project.id, 1, {
+    kind: "pdf",
+    label: "synthetic.pdf",
+    text,
+    pdf,
+  });
+
+  const root = await store.get(`projects/${project.id}/project.md`);
+  assert(root);
+  const metadata = JSON.parse(
+    new TextDecoder().decode(root.bytes).split("\n")[1],
+  );
+  equal(metadata.schema, 2);
+  equal(metadata.source.digest, sha256(text));
+  equal(metadata.source.pdfDigest, sha256(pdf));
+  assert(!JSON.stringify(metadata.sourceFence).includes(text));
+  const key = metadata.source.textPath;
+  const original = await store.stat(key);
+  assert(original);
+  await store.put(key, new TextEncoder().encode("Corrupt text"), "text/plain", {
+    ifMatch: original.etag,
+  });
+  await fails(() => projects.sourceText(project.id), "invalid_source");
+});
+
+Deno.test("an ambiguous content PUT cannot arrive after cleanup and recreate source bytes", async () => {
+  class UncertainBodyStore extends MemoryStore {
+    lateWrite?: () => Promise<string>;
+    override async put(
+      ...args: Parameters<MemoryStore["put"]>
+    ): Promise<string> {
+      if (
+        !this.lateWrite && args[0].endsWith("source.txt") && args[1].length > 0
+      ) {
+        this.lateWrite = () => super.put(...args);
+        throw new StorageUncertain("put", args[0]);
+      }
+      return await super.put(...args);
+    }
+  }
+  const store = new UncertainBodyStore();
+  const projects = new Projects(store);
+  const project = await projects.create("Ambiguous source PUT");
+  await fails(
+    () =>
+      projects.attach(project.id, 1, {
+        kind: "web",
+        label: "synthetic",
+        text: "Private content must not reappear",
+      }),
+    "source_save_uncertain",
+  );
+  assert(store.lateWrite);
+  await fails(store.lateWrite);
+  equal(await store.list(`projects/${project.id}/sources/`), []);
+  equal((await projects.detail(project.id)).source, null);
+  await projects.complete(project.id, 1);
+});
+
+Deno.test("metadata-only Azure stat does not download content and memory listings exclude source artifacts", async () => {
+  const original = BlobClient.prototype.getProperties;
+  try {
+    BlobClient.prototype.getProperties = () =>
+      Promise.resolve({
+        etag: '"synthetic-etag"',
+        contentLength: 25 * 1024 * 1024,
+        get _response(): never {
+          throw new Error("Stat must use metadata only");
+        },
+      });
+    const azure = new AzureStore({
+      ...config,
+      storageMode: "azure",
+      storageAccountUrl: "https://syntheticaccount.blob.core.windows.net",
+      storageContainer: "assistant",
+    });
+    equal(await azure.stat("synthetic.pdf"), {
+      etag: '"synthetic-etag"',
+      size: 25 * 1024 * 1024,
+    });
+  } finally {
+    BlobClient.prototype.getProperties = original;
+  }
+  const store = new MemoryStore();
+  const project = await new Projects(store).create("Listing");
+  for (let index = 0; index < 1001; index++) {
+    await store.put(
+      `projects/${project.id}/sources/${index}`,
+      new Uint8Array(),
+      "application/octet-stream",
+      { ifNoneMatch: true },
+    );
+  }
+  equal(await store.listProjectRecords(), [
+    `projects/${project.id}/project.md`,
+  ]);
+  await fails(
+    () => store.list(`projects/${project.id}/sources/`),
+    "storage_list_limit",
+  );
+  await fails(() => store.get("key", { signal: AbortSignal.abort() }));
 });
 
 const html =

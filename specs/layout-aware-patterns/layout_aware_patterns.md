@@ -1,7 +1,7 @@
 # Layout-Aware Pattern Working Instructions
 
 * **Author:** @scooley
-* **Status:** Owner-approved Major repairs applied; fresh re-audit and release checks pending
+* **Status:** Implementation started (Phase 1 foundation slice); fresh re-audit and release checks pending
 * **Date:** 2026-11-24
 * **Predecessor:** [Concept brief](./concepts_brief.md)
 * **Review:** [Consolidated findings](./consolidated_review_report.md)
@@ -27,8 +27,10 @@ targeted assistance, not whole-document generative transcription. Voice uses the
 active project's reference sections and active changes. Preview shows these
 together with original pages and specific unresolved issues.
 
-This is an approved design revision, not implemented service behavior. No
-deployment, paid test, license purchase, or sample transmission is authorized.
+This is the approved implementation contract. Phase 1 document contracts and
+existing-route source-write fencing are implemented; converter/model integration,
+persisted working instructions and preview are not. No deployment, paid test,
+license purchase, or sample transmission is authorized.
 
 ## The Problem
 

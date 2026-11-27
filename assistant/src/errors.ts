@@ -11,6 +11,14 @@ export class HttpError extends Error {
 
 export class StorageConflict extends Error {}
 
+export class StorageUncertain extends Error {
+  constructor(readonly operation: "put" | "remove", readonly key: string) {
+    super(
+      `Storage ${operation} outcome is uncertain; reconcile before retrying`,
+    );
+  }
+}
+
 export function requireText(
   value: unknown,
   field: string,

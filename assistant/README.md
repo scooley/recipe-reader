@@ -336,6 +336,39 @@ swamp data query 'behavior("recipe-reader-health") && name == "health"' --select
 
 ## Local development
 
+### Layout-aware PDF implementation status
+
+The first offline foundation slice of
+[`layout_aware_patterns.md`](../specs/layout-aware-patterns/layout_aware_patterns.md)
+is implemented: runtime-validated immutable reference/line/size/coverage
+contracts, attributed additive records, explicit supersession/deactivation and
+scoped size resolution. These contracts are not yet exposed as
+working-instruction APIs or preview controls. Document review coverage is not a
+correctness guarantee.
+
+Existing source attachment now registers destination hashes and keys before I/O,
+uses empty placeholders followed by exact-ETag content writes, and verifies
+stored hashes before publication. Completion/deletion closes the source fence
+before sealing every registered key. Unsettled writers return partial cleanup
+rather than discarding the recovery root. Internal registration does not advance
+public revision; newer visible edits still invalidate stale attachment
+publication.
+
+New roots use schema 2. Schema-1 records are not migrated or accepted by this
+implementation; do not roll this development image onto an existing store
+without confirming the design's no-existing-records premise. A schema-1 image
+cannot safely read schema-2 records either.
+
+**Complex PDFs remain unsupported.** The current text-only parser stays in place
+until the sandbox converter and all production PDF call sites can switch
+together. Shared admission, full attempt recovery/retention, persisted
+document/addition publication, the sandbox/model clients, and preview remain
+later work. No new cloud resources, model calls, private samples, or deployments
+are part of this slice. All licensing, isolation, performance, accuracy and cost
+release gates remain outstanding.
+
+### Commands
+
 Install Deno 2.9.6 (or use `npx --yes deno` in place of `deno` below).
 
 ```sh
